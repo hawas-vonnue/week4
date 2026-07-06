@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Services page</title>
+        <link rel="stylesheet" href="css/main.css" />
+    </head>
+    <body>
+        <header>
+            <div id="menu">
+                <img
+                    src="https://img.icons8.com/?size=100&id=s1My9x8dhHDj&format=png&color=000000"
+                    alt="hamburger-button"
+                />
+            </div>
+            <nav>
+                <a href="./index.html">Home</a>
+                <a href="./about.html">About</a>
+                <a href="./services.html" aria-current="page">Services Page</a>
+                <a href="./team.html">Team Page</a>
+                <a href="./contact.html">Contact</a>
+            </nav>
+            <div class="toggle">
+                <button id="checkbox" aria-pressed="false">
+                    <span>toggle dark mode</span>
+                    <img alt="moon logo" />
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="drawer" aria-expanded="false">
+                <a href="./index.html">Home</a>
+                <a href="./about.html">About</a>
+                <a href="./services.html" aria-current="page">Services Page</a>
+                <a href="./team.html">Team Page</a>
+                <a href="./contact.html">Contact</a>
+            </div>
+            <div class="hero">
+                <h1>Services</h1>
+            </div>
+            <article class="parent">
+                <div class="search">
+                    <input
+                        type="search"
+                        id="search-input"
+                        placeholder="type here to search"
+                    />
+                </div>
+                <div class="container">
+                    <article class="service-card">
+                        <h2>MVP Development</h2>
+                        <p>
+                            Turn your vision into a market-ready product with
+                            our agile mvp development process we help you
+                            test,validate and refine your ideas efficiently for
+                            a strong market entry
+                        </p>
+                        <h3>Features</h3>
+                        <ul>
+                            <li>Accelerate Time to Market</li>
+                            <li>Cost-Effective statergy</li>
+                            <li>Gain Early Adopters</li>
+                            <li>Smart Investment</li>
+                        </ul>
+                        <a href="tel:9999999999">Book A call with our CTO</a>
+                    </article>
+                    <article class="service-card">
+                        <h2>Custom software Development</h2>
+                        <p>
+                            Create bespoke software solutions designed to solve
+                            unique challenges. We ensure quality,scalability,and
+                            efficiency in every step of development
+                        </p>
+                        <h3>Types of Software we deliver</h3>
+                        <ul>
+                            <li>Enterprise software Solutions</li>
+                            <li>Mobile and Web Applications</li>
+                            <li>SaaS Products</li>
+                        </ul>
+                        <a href="tel:9999999999"
+                            >Discuss the requirements with our CTO</a
+                        >
+                    </article>
+                    <article class="service-card" id="article3">
+                        <h2>SaaS development</h2>
+                        <p>
+                            Develop robust SaaS platforms with our expertise in
+                            scalable cloud infrastructure , API integrations,and
+                            subscription models tailored to your business needs.
+                        </p>
+                        <h3>Core benefits</h3>
+                        <ul>
+                            <li>Highly Skilled developers</li>
+                            <li>Fast onboarding</li>
+                            <li>Transparent Pricing</li>
+                            <li>Proven Track Record</li>
+                        </ul>
+                        <a href="tel:9999999999"
+                            >Discuss the requirements with our CTO</a
+                        >
+                    </article>
+                    <!-- for skeleton purpose -->
+                    <article class="service-card skeletonPlaceholder"></article>
+                    <article class="service-card skeletonPlaceholder"></article>
+                    <article class="service-card skeletonPlaceholder"></article>
+                    <div class="not-found">
+                        <p>No search results found</p>
+                    </div>
+                </div>
+            </article>
+            <div class="table">
+                <h2>Comparison</h2>
+                <table>
+                    <caption>
+                        Comparison table of services provided.
+                    </caption>
+                    <colgroup>
+                        <col span="1" class="criteria" />
+                        <col span="1" class="normal" />
+                        <col span="1" class="normal" />
+                        <col span="1" class="featured" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="color" scope="col">Criteria</th>
+                            <th class="color" scope="col">MVP Development</th>
+                            <th class="color" scope="col">
+                                Custom software Development
+                            </th>
+                            <th class="featured color" scope="col">
+                                SaaS Development
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Price</th>
+                            <td>Less</td>
+                            <td>More</td>
+                            <td>Highest</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Maintenance</th>
+                            <td>No</td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Remote acess</th>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Updates</th>
+                            <td>No</td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Inplace Support</th>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Customer support</th>
+                            <td>No</td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Integration with inhouse team</th>
+                            <td>No</td>
+                            <td>No</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Customer requirement analysis</th>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Mobile Support</th>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                            <td>Yes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="faqSection">
+                <h3>Frequently asked Questions</h3>
+                <div class="faq">
+                    <span class="question"
+                        >> Do you have a store or main facitility where i can
+                        buy your products from?</span
+                    >
+                    <span class="answer"
+                        >Yes,You can buy our products from our facitility at
+                        sulthan bathery.</span
+                    >
+                </div>
+                <div class="faq">
+                    <span class="question">> How much does it cost?</span>
+                    <span class="answer"
+                        >The cost of the product depends upon what you need and
+                        your requirements. If you need cost calculated for your
+                        requirements contact us directly.</span
+                    >
+                </div>
+                <div class="faq">
+                    <span class="question">> Do you have Free Samples?</span>
+                    <span class="answer">Unfortunately no.</span>
+                </div>
+                <div class="faq">
+                    <span class="question">> How can i get Coupons?</span>
+                    <span class="answer">We dont have any coupon system.</span>
+                </div>
+                <div class="faq">
+                    <span class="question">> How can i work for you?</span>
+                    <span class="answer"
+                        >All our openings will be posted on website and on our
+                        linkedIn page look out there.</span
+                    >
+                </div>
+            </div>
+            <article>
+                <div class="call-action">
+                    <div class="text-area">
+                        <h3>Ready To transform Your Apps</h3>
+                        <p>Join thousands of professional</p>
+                    </div>
+                    <div class="form">
+                        <button>Get in Contact</button>
+                    </div>
+                </div>
+            </article>
+        </main>
+        <footer>
+            <div class="content">
+                <p>2024 Essentials</p>
+            </div>
+        </footer>
+        <button class="back-to-top">Back to top</button>
+        <script src="./js/main.js" type="module"></script>
+    </body>
+</html>
