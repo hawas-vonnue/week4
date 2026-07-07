@@ -20,7 +20,6 @@ const observer = new ResizeObserver((entries) => {
 const chartElement = document.querySelector(".chart");
 observer.observe(chartElement);
 const isTabletOrMore = window.matchMedia("(min-width: 768px)");
-console.log(isTabletOrMore);
 isTabletOrMore.addEventListener("change", (event) => {
     if (isTabletOrMore.matches) console.log("Crossed 768px");
 });
