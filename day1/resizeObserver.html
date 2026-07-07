@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Resize observer example</title>
+        <style>
+            .chart {
+                /* width: 700px; */
+                /* height: 300px; */
+                display: flex;
+                justify-content: space-around;
+                align-items: flex-end;
+                resize: both;
+                overflow: auto;
+                border: solid black;
+            }
+            .barGraph {
+                background-color: blue;
+                height: 250px;
+                width: 40px;
+                margin-top: 2em;
+                min-width: 4px;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>Resize observer example</h1>
+            <div class="chart">
+                <div class="barGraph"></div>
+                <div class="barGraph"></div>
+                <div class="barGraph"></div>
+                <div class="barGraph"></div>
+            </div>
+        </main>
+        <script src="./resizeObserver.js"></script>
+    </body>
+</html>
