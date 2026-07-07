@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Intersection observer example</title>
+        <style>
+            * {
+                box-sizing: border-box;
+                padding: 0;
+                margin: 0;
+            }
+            header {
+                background-color: aqua;
+                height: 30px;
+                width: 100%;
+                position: sticky;
+                top: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 32px;
+            }
+            h1 {
+                text-align: center;
+                margin: 4px;
+            }
+            .images {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+            .card {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                width: 100%;
+                min-height: calc(100vh);
+                border: solid black;
+                padding: 6px;
+            }
+            .imageContainer {
+                display: flex;
+                flex: 1;
+                align-items: center;
+                justify-content: center;
+            }
+            .counter {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <header></header>
+        <!-- <h1>Images</h1> -->
+        <div class="images">
+            <div class="card" data-title="section 1">
+                <h2>Section 1</h2>
+                <div class="imageContainer">
+                    <img
+                        data-src="https://picsum.photos/id/237/400"
+                        alt="random image 1"
+                    />
+                </div>
+            </div>
+            <div class="card" data-title="section 2">
+                <h2>Section 2</h2>
+                <div class="imageContainer">
+                    <img
+                        data-src="https://picsum.photos/id/237/400"
+                        alt="random image 2"
+                    />
+                </div>
+            </div>
+            <div class="card" data-title="section 3">
+                <h2>Section 3</h2>
+                <div class="imageContainer">
+                    <img
+                        data-src="https://picsum.photos/id/237/400"
+                        alt="random image 3"
+                    />
+                </div>
+            </div>
+            <div class="card" data-title="section 4">
+                <h2>Section 4</h2>
+                <div class="imageContainer">
+                    <img
+                        data-src="https://picsum.photos/id/237/400"
+                        alt="random image 4"
+                    />
+                </div>
+            </div>
+            <div class="card" data-title="section 5">
+                <h2>Section 5</h2>
+                <div class="imageContainer">
+                    <img
+                        data-src="https://picsum.photos/id/237/400"
+                        alt="random image 5"
+                    />
+                </div>
+            </div>
+            <div class="card counter" data-title="section 6"></div>
+        </div>
+        <script src="./observer.js"></script>
+    </body>
+</html>
