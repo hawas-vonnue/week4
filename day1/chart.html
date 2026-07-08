@@ -5,12 +5,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Bar chart</title>
         <style>
-            .canvasContainer {
+            main {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
+            }
+            .canvasContainer {
                 margin: 1em;
+                position: relative;
+            }
+            .toolTip {
+                position: absolute;
+                text-align: center;
             }
         </style>
     </head>
@@ -19,7 +26,9 @@
             <div class="canvasContainer">
                 <h1>Canvas Chart</h1>
                 <canvas id="canvas"></canvas>
+                <div class="toolTip"></div>
             </div>
+            <button><a href="" download="chart.png">Export chart</a></button>
         </main>
         <script src="./chart.js"></script>
     </body>
