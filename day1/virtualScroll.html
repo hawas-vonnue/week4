@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Virtual Scroll For large lists</title>
+        <style>
+            h1 {
+                text-align: center;
+            }
+            .container {
+                overflow: auto;
+                height: 100vh;
+            }
+            .card {
+                display: flex;
+                flex-direction: column;
+                padding: 4px;
+                justify-content: center;
+                align-items: center;
+                margin: 10px;
+                min-width: 400px;
+                min-height: 400px;
+                border: solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>Virtual Scroll for Large Lists</h1>
+            <div class="container"></div>
+        </main>
+        <script src="virtualScroll.js"></script>
+    </body>
+</html>
