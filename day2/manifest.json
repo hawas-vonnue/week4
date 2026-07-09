@@ -1,0 +1,21 @@
+{
+    "name": "manifest demo page",
+    "short_name": "manifest",
+    "description": "This is a manifest example webpage",
+    "start_url": "http://127.0.0.1:5500/day2/manifest.html",
+    "display": "standalone",
+    "theme_color": "#3367D6",
+    "background_color": "#3367D6",
+    "icons": [
+        {
+            "src": "./image1.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        },
+        {
+            "src": "./image2.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        }
+    ]
+}
