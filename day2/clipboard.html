@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Clipboard Notification and Geolocation</title>
+        <style>
+            form {
+                margin: 1em;
+                display: flex;
+                flex-direction: column;
+                gap: 1em;
+            }
+
+            #submit {
+                width: 70px;
+                height: 50px;
+                margin: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <code> Hello this is clipboard </code>
+            <button class="copyCode">copy</button>
+            <form>
+                <div class="field">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" required />
+                </div>
+                <div class="field">
+                    <label for="location">location</label>
+                    <input type="text" id="location" />
+                </div>
+                <input type="submit" id="submit" />
+            </form>
+            <button class="share">Share</button>
+        </main>
+        <script src="./clipboard.js"></script>
+    </body>
+</html>
