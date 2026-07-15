@@ -41,12 +41,15 @@ class FormValidator {
                 case "pattern": {
                     if (!fieldRules[fieldRule].test(field.value)) {
                         span.textContent = "error: pattern doesnt match";
+                        flag = 1;
                     }
                 }
                 case "email": {
                     const pattern =
                         /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$/;
                     if (!pattern.test(field.value)) {
+                        //no email at all
+                        if (field.value === "") break;
                         span.textContent = "error: email format is wrong";
                         flag = 1;
                     }
@@ -92,10 +95,6 @@ class FormValidator {
             if (field != null)
                 this.validate(this.form.querySelector(`#${key}`));
         });
-    }
-
-    display() {
-        console.log(this.form);
     }
 }
 

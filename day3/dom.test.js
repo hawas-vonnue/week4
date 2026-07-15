@@ -14,14 +14,24 @@ describe("test formValidator", () => {
         <label for="name">Name:</label>
         <input type="text" id="name" name="name"/>
         <span></span>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email"/>
+        <span id="emailSpan"></span>
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone">
+        <span id="phoneSpan"></span>
     </form>
 </main>`;
     const form = document.querySelector("form");
     const input = document.querySelector("input");
     const span = document.querySelector("span");
+    const email = document.querySelector("#email");
+    const emailSpan = document.querySelector("#emailSpan");
+    const phone = document.querySelector("#phone");
+    const phoneSpan = document.querySelector("#phoneSpan");
     rules = {
         name: { required: true, minLength: 2, maxLength: 10 },
-        email: { required: true, email: true },
+        email: { required: false, email: true },
     };
     const formValidator = new FormValidator(form, rules);
     test("check error message appear", () => {
@@ -35,6 +45,39 @@ describe("test formValidator", () => {
         formValidator.validateAll();
         expect(span.textContent).toEqual(expect.not.stringContaining("error"));
     });
+    test("check if the value is less than minimum length", () => {
+        input.value = "f";
+        expect(() => {
+            formValidator.validate(input);
+        }).toThrow();
+        expect(span.textContent).toEqual(
+            expect.stringContaining("minimum length")
+        );
+    });
+    test("check if the value exceeds maximum length", () => {
+        input.value = "fadhil123456789";
+        expect(() => {
+            formValidator.validate(input);
+        }).toThrow();
+        expect(span.textContent).toEqual(
+            expect.stringContaining("maximum length")
+        );
+    });
+    test("check if email has error", () => {
+        email.value = "hawas";
+        expect(() => {
+            formValidator.validate(email);
+        }).toThrow();
+    });
+    test("check if email has no error", () => {
+        email.value = "hawas@gmail.com";
+        formValidator.validate(email);
+        expect(emailSpan.textContent).toBe("");
+    });
+    test("check if there is no rules", () => {
+        formValidator.validate(phone);
+        expect(phoneSpan.textContent).toBe("");
+    });
 });
 
 describe("test accordion", () => {
@@ -46,12 +89,16 @@ describe("test accordion", () => {
     const header = document.querySelector(".header");
     const panel = document.querySelector(".panel");
     accordion(header, panel);
-    header.click();
     test("aria-expanded to true", () => {
+        header.click();
         expect(header.ariaExpanded).toBe("true");
     });
     test("panel become visible (max-height not zero)", () => {
         expect(panel.style.maxHeight).not.toBe("0px");
+    });
+    test("aria-expanded to false", () => {
+        header.click();
+        expect(header.ariaExpanded).toBe("false");
     });
 });
 
@@ -89,10 +136,20 @@ describe("test mobile nav", () => {
     const drawer = document.querySelector(".drawer");
     const links = document.querySelectorAll("a");
     nav(hamburger, drawer);
-    hamburger.click();
 
     test("drawer has class open", () => {
+        hamburger.click();
         expect(drawer.classList).toContain("open");
+    });
+    test("drawer have no open", () => {
+        hamburger.click();
+        expect(drawer.classList).not.toContain("open");
+    });
+    test("drawer closes with escape", async () => {
+        hamburger.click();
+        expect(drawer.classList).toContain("open");
+        await user.keyboard("{Escape}");
+        expect(drawer.classList).not.toContain("open");
     });
 
     test("focus is trapped", async () => {
