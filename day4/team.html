@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>Team Page of Essentials company</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            rel="preload"
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+            as="style"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="css/main.css" />
+        <link
+            rel="preload"
+            as="image"
+            href="https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            fetchpriority="high"
+        />
+        <link
+            rel="preconnect"
+            href="https://jsonplaceholder.typicode.com/users"
+        />
+    </head>
+    <body>
+        <header>
+            <div id="menu">
+                <img
+                    src="https://img.icons8.com/?size=100&id=s1My9x8dhHDj&format=png&color=000000"
+                    alt="hamburger-button"
+                />
+            </div>
+            <nav>
+                <a href="./index.html">Home</a>
+                <a href="./about.html">About</a>
+                <a href="./services.html">Services Page</a>
+                <a href="./team.html" aria-current="page">Team Page</a>
+                <a href="./contact.html">Contact</a>
+            </nav>
+            <div class="toggle">
+                <button id="checkbox" aria-pressed="false">
+                    <span>toggle dark mode</span>
+                    <img alt="moon logo" />
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="drawer" aria-expanded="false">
+                <a href="./index.html">Home</a>
+                <a href="./about.html">About</a>
+                <a href="./services.html">Services Page</a>
+                <a href="./team.html" aria-current="page">Team Page</a>
+                <a href="./contact.html">Contact</a>
+            </div>
+            <div class="team">
+                <div class="hero">
+                    <h1>Our Team</h1>
+                </div>
+                <div class="filter">
+                    <a href="#developers">show Developers</a>
+                    <a href="#designers">show Designers</a>
+                </div>
+                <section id="developers">
+                    <h2>Development Team</h2>
+                    <div class="container">
+                        <div>
+                            <figure>
+                                <img
+                                    src="https://picsum.photos/id/27/1000/1000"
+                                    alt="developer 1"
+                                    loading="lazy"
+                                />
+                                <figcaption><h3>Pedri Gonzales</h3></figcaption>
+                            </figure>
+                            <p>Developer</p>
+                            <p>
+                                Pedri is a Developer specialised in Java
+                                Programming with experience of 5 years.
+                            </p>
+                            <div class="social-icons">
+                                <img
+                                    src=" https://img.icons8.com/?size=100&id=118468&format=png&color=000000"
+                                    alt="facebook icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=fJp7hepMryiw&format=png&color=000000"
+                                    alt="Twitter icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=32292&format=png&color=000000"
+                                    alt="Insta icon"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <figure>
+                                <img
+                                    src="https://picsum.photos/id/20/1000/1000"
+                                    alt="developer 2"
+                                    loading="lazy"
+                                />
+                                <figcaption>
+                                    <h3>Bruno fernandez</h3>
+                                </figcaption>
+                            </figure>
+                            <p>Developer</p>
+                            <p>
+                                Bruno is a Developer specialised in Python
+                                Programming with experience of 3 years.
+                            </p>
+                            <div class="social-icons">
+                                <img
+                                    src=" https://img.icons8.com/?size=100&id=118468&format=png&color=000000"
+                                    alt="facebook icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=fJp7hepMryiw&format=png&color=000000"
+                                    alt="Twitter icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=32292&format=png&color=000000"
+                                    alt="Insta icon"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <figure>
+                                <img
+                                    src="https://picsum.photos/id/41/1000/1000"
+                                    alt="Tester 1"
+                                    loading="lazy"
+                                />
+                                <figcaption><h3>Mikel Merino</h3></figcaption>
+                            </figure>
+                            <p>Tester</p>
+                            <p>
+                                Mikel is a tester with 5 year experience in
+                                testing.
+                            </p>
+                            <div class="social-icons">
+                                <img
+                                    src=" https://img.icons8.com/?size=100&id=118468&format=png&color=000000"
+                                    alt="facebook icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=fJp7hepMryiw&format=png&color=000000"
+                                    alt="Twitter icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=32292&format=png&color=000000"
+                                    alt="Insta icon"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <figure>
+                                <img
+                                    src="https://picsum.photos/id/81/1000/1000"
+                                    alt="developer 3"
+                                    loading="lazy"
+                                />
+                                <figcaption><h3>Lamine Yamal</h3></figcaption>
+                            </figure>
+                            <p>Developer</p>
+                            <p>
+                                Lamine Yamal is a Developer specialised in C
+                                Programming with experience of 1 years.
+                            </p>
+                            <div class="social-icons">
+                                <img
+                                    src=" https://img.icons8.com/?size=100&id=118468&format=png&color=000000"
+                                    alt="facebook icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=fJp7hepMryiw&format=png&color=000000"
+                                    alt="Twitter icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=32292&format=png&color=000000"
+                                    alt="Insta icon"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <figure>
+                                <img
+                                    src="https://picsum.photos/id/22/1000/1000"
+                                    alt="developer 4"
+                                    loading="lazy"
+                                />
+                                <figcaption><h3>Dani Olmo</h3></figcaption>
+                            </figure>
+                            <p>Developer</p>
+                            <p>
+                                Dani Olmo is a Developer specialised in Python
+                                Programming with experience of 5 years.
+                            </p>
+                            <div class="social-icons">
+                                <img
+                                    src=" https://img.icons8.com/?size=100&id=118468&format=png&color=000000"
+                                    alt="facebook icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=fJp7hepMryiw&format=png&color=000000"
+                                    alt="Twitter icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=32292&format=png&color=000000"
+                                    alt="Insta icon"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <figure>
+                                <img
+                                    src="https://picsum.photos/id/23/1000/1000"
+                                    alt="Tester 2"
+                                    loading="lazy"
+                                />
+                                <figcaption><h3>Ferran Torres</h3></figcaption>
+                            </figure>
+                            <p>Tester</p>
+                            <p>
+                                Ferran Torres is a Tester with 3 years of
+                                experience.
+                            </p>
+                            <div class="social-icons">
+                                <img
+                                    src=" https://img.icons8.com/?size=100&id=118468&format=png&color=000000"
+                                    alt="facebook icon"
+                                    loading="lazy"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=fJp7hepMryiw&format=png&color=000000"
+                                    alt="Twitter icon"
+                                    loading="lazy"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=32292&format=png&color=000000"
+                                    alt="Insta icon"
+                                    loading="lazy"
+                                />
+                            </div>
+                        </div>
+                        <div class="skeletonPlaceholder"></div>
+                        <div class="skeletonPlaceholder"></div>
+                        <div class="skeletonPlaceholder"></div>
+                    </div>
+                </section>
+                <section id="designers">
+                    <h2>Designers</h2>
+                    <div class="container">
+                        <div>
+                            <figure>
+                                <img
+                                    src="https://picsum.photos/id/101/1000/1000"
+                                    alt="Designer 1"
+                                    loading="lazy"
+                                />
+                                <figcaption><h3>Fermin</h3></figcaption>
+                            </figure>
+                            <p>Designer Lead</p>
+                            <p>
+                                Fermin is the lead designer of Essentials with
+                                more than 10 years experience in the field.
+                            </p>
+                            <div class="social-icons">
+                                <img
+                                    src=" https://img.icons8.com/?size=100&id=118468&format=png&color=000000"
+                                    alt="facebook icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=fJp7hepMryiw&format=png&color=000000"
+                                    alt="Twitter icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=32292&format=png&color=000000"
+                                    alt="Insta icon"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <figure>
+                                <img
+                                    src="https://picsum.photos/id/102/1000/1000"
+                                    alt="Designer 2"
+                                    loading="lazy"
+                                />
+                                <figcaption><h3>Nico Williams</h3></figcaption>
+                            </figure>
+                            <p>Junior Designer</p>
+                            <p>
+                                Nico Williams is Designer with experience around
+                                3 years in the field.
+                            </p>
+                            <div class="social-icons">
+                                <img
+                                    src=" https://img.icons8.com/?size=100&id=118468&format=png&color=000000"
+                                    alt="facebook icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=fJp7hepMryiw&format=png&color=000000"
+                                    alt="Twitter icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=32292&format=png&color=000000"
+                                    alt="Insta icon"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <figure>
+                                <img
+                                    src="https://picsum.photos/id/103/1000/1000"
+                                    alt="Designer 3"
+                                    loading="lazy"
+                                />
+                                <figcaption>
+                                    <h3>Mikel Oyrazzabal</h3>
+                                </figcaption>
+                            </figure>
+                            <p>Junior Designer</p>
+                            <p>
+                                Mikel Oyrazzabal is Designer with experience
+                                around 2 years in the field.
+                            </p>
+                            <div class="social-icons">
+                                <img
+                                    src=" https://img.icons8.com/?size=100&id=118468&format=png&color=000000"
+                                    alt="facebook icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=fJp7hepMryiw&format=png&color=000000"
+                                    alt="Twitter icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=32292&format=png&color=000000"
+                                    alt="Insta icon"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <figure>
+                                <img
+                                    src="https://picsum.photos/id/104/1000/1000"
+                                    alt="Designer 4"
+                                    loading="lazy"
+                                />
+                                <figcaption><h3>David Raya</h3></figcaption>
+                            </figure>
+                            <p>Junior Designer</p>
+                            <p>
+                                David Raya is Designer with experience around 6
+                                years in the field.
+                            </p>
+                            <div class="social-icons">
+                                <img
+                                    src=" https://img.icons8.com/?size=100&id=118468&format=png&color=000000"
+                                    alt="facebook icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=fJp7hepMryiw&format=png&color=000000"
+                                    alt="Twitter icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=32292&format=png&color=000000"
+                                    alt="Insta icon"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <figure>
+                                <img
+                                    src="https://picsum.photos/id/108/1000/1000"
+                                    alt="Designer 5"
+                                    loading="lazy"
+                                />
+                                <figcaption><h3>Cubarsi</h3></figcaption>
+                            </figure>
+                            <p>Junior Designer</p>
+                            <p>
+                                Cubarsi is Designer with experience around 1
+                                years in the field.
+                            </p>
+                            <div class="social-icons">
+                                <img
+                                    src=" https://img.icons8.com/?size=100&id=118468&format=png&color=000000"
+                                    alt="facebook icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=fJp7hepMryiw&format=png&color=000000"
+                                    alt="Twitter icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=32292&format=png&color=000000"
+                                    alt="Insta icon"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <figure>
+                                <img
+                                    src="https://picsum.photos/id/106/1000/1000"
+                                    alt="Designer 6"
+                                    loading="lazy"
+                                />
+                                <figcaption><h3>Joan Garcia</h3></figcaption>
+                            </figure>
+                            <p>Junior Designer</p>
+                            <p>
+                                Joan Garcia is Designer with experience around 3
+                                years in the field.
+                            </p>
+                            <div class="social-icons">
+                                <img
+                                    src=" https://img.icons8.com/?size=100&id=118468&format=png&color=000000"
+                                    alt="facebook icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=fJp7hepMryiw&format=png&color=000000"
+                                    alt="Twitter icon"
+                                />
+                                <img
+                                    src="https://img.icons8.com/?size=100&id=32292&format=png&color=000000"
+                                    alt="Insta icon"
+                                />
+                            </div>
+                        </div>
+                        <div class="skeletonPlaceholder"></div>
+                        <div class="skeletonPlaceholder"></div>
+                        <div class="skeletonPlaceholder"></div>
+                    </div>
+                </section>
+            </div>
+            <div class="image-overlay">
+                <button class="prev">Prev</button>
+                <img src="" alt="placeholder" />
+                <button class="next">next</button>
+                <button class="close">
+                    <img
+                        src="https://img.icons8.com/?size=100&id=bQx8ng4HTNjG&format=png&color=000000"
+                        alt="close icon"
+                    />
+                </button>
+            </div>
+        </main>
+        <footer>
+            <div class="content">
+                <p>© 2024 Essentials</p>
+            </div>
+        </footer>
+        <button class="back-to-top">Back to top</button>
+        <script src="./js/main.js" type="module"></script>
+    </body>
+</html>
