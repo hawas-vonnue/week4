@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Contact Page of Essentials company</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            rel="preload"
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+            as="style"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="css/main.css" />
+        <link
+            rel="preload"
+            as="image"
+            href="https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            fetchpriority="high"
+        />
+    </head>
+    <body>
+        <header>
+            <div id="menu">
+                <img
+                    src="https://img.icons8.com/?size=100&id=s1My9x8dhHDj&format=png&color=000000"
+                    alt="hamburger-button"
+                />
+            </div>
+            <nav>
+                <a href="./index.html">Home</a>
+                <a href="./about.html">About</a>
+                <a href="./services.html">Services Page</a>
+                <a href="./team.html">Team Page</a>
+                <a href="./contact.html" aria-current="page">Contact</a>
+            </nav>
+            <div class="toggle">
+                <button id="checkbox" aria-pressed="false">
+                    <span>toggle dark mode</span>
+                    <img alt="moon logo" />
+                </button>
+            </div>
+        </header>
+        <main>
+            <div class="drawer">
+                <a href="./index.html">Home</a>
+                <a href="./about.html">About</a>
+                <a href="./services.html">Services Page</a>
+                <a href="./team.html">Team Page</a>
+                <a href="./contact.html" aria-current="page">Contact</a>
+            </div>
+            <div class="contact-form">
+                <div class="hero">
+                    <h1>Contact</h1>
+                </div>
+                <form>
+                    <fieldset>
+                        <legend>Contact Form</legend>
+                        <div class="field">
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Name"
+                                autocomplete="on"
+                            />
+                            <label for="name">Name:*</label>
+                            <span class="errorMessage"></span>
+                        </div>
+                        <div class="field">
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Email"
+                                autocomplete="on"
+                            />
+                            <label for="email">Email:*</label>
+                            <span class="errorMessage"></span>
+                        </div>
+                        <div class="field">
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="phone"
+                                autocomplete="on"
+                            />
+                            <label for="phone">Phone:</label>
+                            <span class="errorMessage"></span>
+                        </div>
+                        <div class="select-field">
+                            <label for="select">Department:</label>
+                            <select name="department" id="select">
+                                <option value="">Choose a department</option>
+                                <option value="Design">Design</option>
+                                <option value="Developer">Developer</option>
+                                <option value="QA">QA</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <textarea
+                                id="message"
+                                name="message"
+                                placeholder="message"
+                            ></textarea>
+                            <label for="message">message:*</label>
+                            <span class="errorMessage"></span>
+                        </div>
+                        <div class="checkbox-field">
+                            <input type="checkbox" id="newsLetter" />
+                            <label for="newsLetter">Send news letter</label>
+                        </div>
+                        <input id="submitButton" type="submit" />
+                        <div class="spinnerContainer">
+                            <div class="spinner"></div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+            <div class="location">
+                <h2>Location</h2>
+                <iframe
+                    title="Location of Company"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3907.476957585935!2d76.23974257505509!3d11.66057178854709!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba6097295a1d8ad%3A0xb302b72edc08e0db!2sVonnue%20Innovations%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1780989264902!5m2!1sen!2sin"
+                    style="border: 0"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                >
+                </iframe>
+                <address>
+                    2nd Floor Key Tee Tower, Sultan Bathery, kerala,
+                    India-673592
+                </address>
+            </div>
+        </main>
+        <footer>
+            <div class="content">
+                <p>2024 Essentials</p>
+            </div>
+        </footer>
+        <button class="back-to-top">Back to top</button>
+        <script src="./js/main.js" type="module"></script>
+    </body>
+</html>
