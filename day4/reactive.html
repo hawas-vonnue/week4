@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Proxy and reactive state</title>
+        <style>
+            main {
+                display: flex;
+                flex-direction: column;
+                gap: 2em;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <h1>Proxy and Reactive State</h1>
+            <form>
+                <label for="name">Name:</label>
+                <input type="text" id="name" />
+                <label for="email">Email:</label>
+                <input type="text" id="email" />
+            </form>
+            <div class="para">
+                My name is <span id="nameSpan"></span> and my email is
+                <span id="emailSpan"></span>
+            </div>
+        </main>
+        <script src="./reactive.js"></script>
+    </body>
+</html>
