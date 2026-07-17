@@ -1,6 +1,14 @@
-export function register(path, component) {}
+export function register(routes, path, component) {
+    routes[path] = component;
+}
 
-export function navigate(path) {}
+export function navigate(routes, path) {
+    let fn = routes[path];
+    console.log(path);
+    console.log("function");
+    console.log(fn);
+    fn();
+}
 
 export function createButton() {}
 
