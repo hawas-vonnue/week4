@@ -6,14 +6,9 @@ import { renderWatchList } from "./pages/watchlist.js";
 import { navigate } from "./util.js";
 import { register } from "./util.js";
 import { createStore } from "./util.js";
+import { reducer } from "./util.js";
 
-const routes = [
-    "/day5/movie-library.html/home",
-    "/day5/movie-library.html/list",
-    "/day5/movie-library.html/detail",
-    "/day5/movie-library.html/settings",
-    "/day5/movie-library.html/watchlist",
-];
+const routes = ["#home", "#list", "#detail", "#settings", "#watchlist"];
 const routesMap = {};
 
 register(routesMap, routes[0], renderHomePage);
@@ -26,30 +21,52 @@ const links = document.querySelectorAll("a");
 links.forEach((element) => {
     element.addEventListener("click", (event) => {
         event.preventDefault();
-        let pathname = document.location.pathname;
-        pathname = pathname.split("/").slice(0, -1).join("/");
-        const url = `${pathname}/${event.target.id}`;
-        // const url = `day5/movie-library.html/${event.target.id}`;
-        history.pushState({}, null, url);
-        console.log(document.location.pathname);
-        navigate(routesMap, document.location.pathname);
+        if (`#${event.target.id}` !== document.location.hash) {
+            history.pushState({}, null, `#${event.target.id}`);
+            onRouteChange(document.location.hash, {});
+        }
     });
 });
 window.onload = (event) => {
     init();
-    console.log(routes);
 };
 
+window.addEventListener("popstate", () => {
+    onRouteChange(document.location.hash, {});
+});
+
 function init() {
-    let pathname = document.location.pathname;
-    console.log("inside init");
-    if (routes.includes(pathname)) {
-        console.log("hello");
-        navigate(routesMap, pathname);
+    if (routes.includes(document.location.hash)) {
+        onRouteChange(document.location.hash, {});
     } else {
-        const url = `/day5/movie-library.html/home`;
-        history.replaceState({}, null, url);
-        navigate(routesMap, url);
+        console.log("hello");
+        history.pushState({}, null, "#home");
+        onRouteChange(document.location.hash, {});
     }
 }
-console.log(routesMap);
+
+// Initial State
+const initialState = {
+    route: {
+        path: "",
+        params: {},
+    },
+};
+
+const store = createStore(initialState, reducer);
+
+// Called whenever the route changes
+function onRouteChange(path, params) {
+    store.dispatch({
+        type: "ROUTE_CHANGED",
+        payload: {
+            path,
+            params,
+        },
+    });
+}
+
+// Component subscribes to state changes
+store.subscribe((state) => {
+    navigate(routesMap, state.route.path);
+});
