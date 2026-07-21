@@ -2,7 +2,8 @@ import { parseCSV } from "../util.js";
 import { createCard } from "../util.js";
 
 export async function renderHomePage() {
-    const documentFragment = document.createDocumentFragment();
+    const documentFragment = document.createElement("div");
+    documentFragment.classList.add("home");
     const heroElement = document.createElement("div");
     heroElement.classList.add("hero");
     const imageElement = document.createElement("img");
@@ -19,25 +20,29 @@ export async function renderHomePage() {
     h3Element.textContent = "TOP 3 Movies";
     const topCardContainer = document.createElement("div");
     topCardContainer.classList.add("cardContainer");
-    let movies = await parseCSV();
-    for (let i = 0; i < 3; i++) {
-        let genres = movies[i].genre;
-        genres = genres.replace(/'/g, '"');
-        genres = JSON.parse(genres);
-        let card = createCard(
-            movies[i].title,
-            movies[i].rating,
-            genres,
-            movies[i].image,
-            movies[i].year,
-            movies[i].imdbid
-        );
-        topCardContainer.appendChild(card);
-    }
-    topElement.append(h3Element, topCardContainer);
-    documentFragment.append(heroElement, topElement);
+    try {
+        let movies = await parseCSV();
+        for (let i = 0; i < 3; i++) {
+            let genres = movies[i].genre;
+            genres = genres.replace(/'/g, '"');
+            genres = JSON.parse(genres);
+            let card = createCard(
+                movies[i].title,
+                movies[i].rating,
+                genres,
+                movies[i].image,
+                movies[i].year,
+                movies[i].imdbid
+            );
+            topCardContainer.appendChild(card);
+        }
+        topElement.append(h3Element, topCardContainer);
+        documentFragment.append(heroElement, topElement);
 
-    const mainElement = document.querySelector("main");
-    mainElement.innerHTML = "";
-    mainElement.append(documentFragment);
+        const mainElement = document.querySelector("main");
+        mainElement.innerHTML = "";
+        mainElement.append(documentFragment);
+    } catch (error) {
+        alert(error);
+    }
 }

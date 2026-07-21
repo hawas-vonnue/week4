@@ -1,5 +1,6 @@
-let movies = new Set();
 import { onRouteChange } from "./main.js";
+import { onMoviesListChange } from "./main.js";
+
 export function register(routes, path, component) {
     routes[path] = component;
 }
@@ -32,10 +33,11 @@ export function createCard(
 ) {
     const cardElement = document.createElement("div");
     cardElement.classList.add("card");
+    cardElement.dataset.imdbId = imdbID;
+    cardElement.id = imdbID;
     const imageElement = document.createElement("img");
     imageElement.src = posterSrc;
     imageElement.addEventListener("error", (event) => {
-        // event.preventDefault();
         event.target.src = "https://picsum.photos/200/300";
     });
     const descriptionElement = document.createElement("div");
@@ -59,21 +61,18 @@ export function createCard(
         button.classList.add("watchedButton");
         descriptionElement.append(button);
 
-        button.addEventListener("click", (event) => {
+        button.addEventListener("click", async (event) => {
             const cardToDelete =
                 event.currentTarget.parentElement.parentElement;
-            const watchListContainer = document.querySelector(
-                ".watchListContainer"
-            );
-            watchListContainer.removeChild(cardToDelete);
-            console.log("removed from watchlist");
+            movies.delete(cardToDelete.dataset.imdbId);
+            await onMoviesListChange("delete", cardToDelete.id, movies);
+            showToast("removed from watchlist", 3, "success");
         });
     }
-    cardElement.dataset.imdbID = imdbID;
     cardElement.append(imageElement, descriptionElement);
     cardElement.addEventListener("click", (event) => {
         if (event.target.className === "watchedButton") return;
-        let imdbId = event.currentTarget.dataset.imdbID;
+        let imdbId = event.currentTarget.dataset.imdbId;
         let pathname = document.location.pathname;
         pathname = pathname.split("/").slice(0, -1).join("/");
         const url = `${pathname}/detail/:${imdbId}`;
@@ -96,6 +95,9 @@ export function createModal() {
     searchButton.classList.add("searchButton");
     searchButton.textContent = "Search";
     searchElement.append(inputElement, searchButton);
+    const spinnerElement = document.createElement("div");
+    spinnerElement.classList.add("spinner");
+    spinnerElement.classList.add("hidden");
     const warningElement = document.createElement("span");
     warningElement.classList.add("warning");
     const searchResultContainer = document.createElement("div");
@@ -105,6 +107,7 @@ export function createModal() {
     closeOverlayButton.textContent = "x";
     overlay.append(
         searchElement,
+        spinnerElement,
         warningElement,
         searchResultContainer,
         closeOverlayButton
@@ -115,21 +118,25 @@ export function createModal() {
     });
 
     searchButton.addEventListener("click", () => {
+        spinnerElement.classList.remove("hidden");
         searchResultContainer.innerHTML = "";
         warningElement.textContent = "";
         let searchValue = searchButton.previousElementSibling.value;
         if (searchValue === "") return;
         if (searchValue.length < 3) {
             warningElement.textContent = "Type at least three characters";
+            spinnerElement.classList.add("hidden");
 
             return;
         }
         searchMovie(searchValue).then(
             (searchResults) => {
                 searchResultContainer.append(searchResults);
+                spinnerElement.classList.add("hidden");
             },
             (error) => {
                 warningElement.textContent = "No results found";
+                spinnerElement.classList.add("hidden");
             }
         );
     });
@@ -151,7 +158,6 @@ export async function fetchJson(url) {
     }
 }
 
-// Reducer
 export function reducer(state, action) {
     switch (action.type) {
         case "ROUTE_CHANGED":
@@ -159,7 +165,27 @@ export function reducer(state, action) {
                 ...state,
                 route: action.payload,
             };
-
+        case "MOVIESLIST_CHANGED": {
+            let list = state.moviesList;
+            if (action.payload.type === "add") {
+                list.add(action.payload.id);
+            }
+            if (action.payload.type === "delete")
+                list.delete(action.payload.id);
+            return {
+                ...state,
+                moviesList: list,
+                movieChanged: {
+                    id: action.payload.id,
+                    type: action.payload.type,
+                },
+            };
+        }
+        case "ON_LOAD":
+            return {
+                ...state,
+                moviesList: action.moviesList,
+            };
         default:
             return state;
     }
@@ -168,24 +194,46 @@ export function reducer(state, action) {
 // Create Store
 export function createStore(initialState, reducer) {
     let state = initialState;
-    const listeners = new Set();
+    const listeners = {};
 
     return {
         getState() {
             return state;
         },
 
-        dispatch(action) {
+        async dispatch(action) {
+            if (state.moviesList.has(action.payload.id)) {
+                showToast("movie already in watchlist", 3, "error");
+                return;
+            }
             // Update state
             state = reducer(state, action);
 
+            //store updated state in local storage if type is MOVIESLIST_CHANGED
+            if (action.type === "MOVIESLIST_CHANGED") {
+                localStorage.setItem(
+                    "moviesList",
+                    JSON.stringify([...state.moviesList])
+                );
+            }
+            if (action.type === "ROUTE_CHANGED") {
+                let value = localStorage.getItem("moviesList");
+                let movies = new Set(JSON.parse(value));
+                state = reducer(state, { type: "ON_LOAD", moviesList: movies });
+            }
+
             // Notify subscribers
-            listeners.forEach((listener) => listener(state));
+            let listenersOfType = listeners[action.type];
+            for (let listener of listenersOfType) {
+                await listener(state);
+            }
         },
 
-        subscribe(listener) {
-            listeners.add(listener);
-            return () => listeners.delete(listener);
+        subscribe(type, listener) {
+            if (!listeners[type]) {
+                listeners[type] = [];
+            }
+            listeners[type].push(listener);
         },
     };
 }
@@ -261,10 +309,10 @@ export function createSearchResultCard(title, year, posterSrc) {
     addToWatchListButton.textContent = "add to watchlist";
     descriptionElement.append(nameElement, addToWatchListButton);
     cardElement.append(imageElement, descriptionElement);
-    addToWatchListButton.addEventListener("click", (event) => {
-        let title =
-            event.currentTarget.parentElement.parentElement.dataset.title;
-        addToWatchList(title);
+    addToWatchListButton.addEventListener("click", async (event) => {
+        let imdbId =
+            event.currentTarget.parentElement.parentElement.dataset.imdbId;
+        await onMoviesListChange("add", imdbId);
     });
 
     return cardElement;
@@ -284,7 +332,7 @@ export async function searchMovie(name) {
             movie.Year,
             movie.Poster
         );
-        card.dataset.title = movie.Title;
+        card.dataset.imdbId = movie.imdbID;
 
         documentFragment.append(card);
     }
@@ -292,15 +340,14 @@ export async function searchMovie(name) {
     return documentFragment;
 }
 
-export async function addToWatchList(title) {
-    const watchListContainer = document.querySelector(".watchListContainer");
+export async function addToWatchList(imdbId) {
     const overlay = document.querySelector(".overlay");
-    let url = `http://www.omdbapi.com/?t=${title}&page=1&apikey=cbd3390f`;
-    const result = await fetchJson(url);
-    if (movies.has(result.imdbID)) {
-        alert(`${result.Title} already in watchlist`);
-
-        return;
+    let url = `http://www.omdbapi.com/?i=${imdbId}&page=1&apikey=cbd3390f`;
+    let result;
+    try {
+        result = await fetchJson(url);
+    } catch (error) {
+        showToast("error in fetching ", 3, "error");
     }
     let rating;
     if (result.Ratings.length === 0) rating = "N/A";
@@ -315,7 +362,143 @@ export async function addToWatchList(title) {
         result.imdbID,
         "true"
     );
-    watchListContainer.append(card);
-    movies.add(result.imdbID);
-    alert(`added ${result.Title} to watchlist`);
+
+    return card;
+}
+
+export async function renderUpdatedMoviesList(state) {
+    if (!document.location.pathname.includes("watchlist")) return;
+    let movies = state.moviesList;
+    let moviesList = movies;
+    const watchListContainer = document.querySelector(".watchListContainer");
+    const documentFragment = document.createDocumentFragment();
+    for (let movie of moviesList) {
+        const card = await addToWatchList(movie);
+        documentFragment.append(card);
+    }
+    const spinner = document.querySelector("main .spinner");
+    watchListContainer.replaceChildren(documentFragment);
+    spinner.classList.add("hidden");
+}
+
+export async function updateMovieList(state) {
+    let type = state.movieChanged.type;
+    let id = state.movieChanged.id;
+    const watchListContainer = document.querySelector(".watchListContainer");
+    if (type === "delete") {
+        const card = document.getElementById(id);
+        watchListContainer.removeChild(card);
+    }
+    if (type === "add") {
+        const card = await addToWatchList(id);
+        watchListContainer.append(card);
+        showToast(`added movie to watchlist`, 3, "success");
+    }
+}
+
+export function showToast(message, duration, type = "error") {
+    const toasts = document.querySelectorAll(".showToast");
+    toasts.forEach((toast) => {
+        toast.remove();
+    });
+    const showToastElement = document.createElement("div");
+    showToastElement.style.zIndex = "120";
+    showToastElement.classList.add("showToast");
+    const toastContainerElement = document.createElement("div");
+    toastContainerElement.classList.add("toastContainer");
+    const imageElement = document.createElement("img");
+    const progressBarElement = document.createElement("div");
+    progressBarElement.classList.add("progressBar");
+    if (type === "warning") {
+        imageElement.src =
+            "https://img.icons8.com/?size=100&id=781qLOihKEEg&format=png&color=000000";
+        progressBarElement.style.border = "solid yellow";
+        showToastElement.style.backgroundColor = "#ffffdd";
+    }
+    if (type === "info") {
+        imageElement.src =
+            "https://img.icons8.com/?size=100&id=FJjsgnE4CWTg&format=png&color=000000";
+        progressBarElement.style.border = "solid blue";
+        showToastElement.style.backgroundColor = "#ADD8E6";
+    }
+    if (type === "error") {
+        imageElement.src =
+            "https://img.icons8.com/?size=100&id=43735&format=png&color=000000";
+        progressBarElement.style.border = "solid red";
+        showToastElement.style.backgroundColor = "#FF474C";
+    }
+    if (type === "success") {
+        imageElement.src =
+            "https://img.icons8.com/?size=100&id=43711&format=png&color=000000";
+        progressBarElement.style.border = "solid green";
+        showToastElement.style.backgroundColor = "#90EE90";
+    }
+    const messageElement = document.createElement("span");
+    messageElement.textContent = message;
+    toastContainerElement.appendChild(imageElement);
+    toastContainerElement.appendChild(messageElement);
+    showToastElement.appendChild(toastContainerElement);
+    showToastElement.appendChild(progressBarElement);
+    const styleElement = document.createElement("style");
+    styleElement.textContent = `  .showToast {
+        box-sizing: border-box;
+        position: fixed;
+        top: 60px;
+        right: 30px;
+        border: solid;
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        transform: translateX(120%);
+        animation:
+          slideIn 0.3s ease-in forwards,
+          slideOut 0.5s ease-out forwards ${duration}s;
+      }
+      .toastContainer {
+        display: flex;
+        align-items: center;
+        gap:4px;
+      }
+      .progressBar {
+        box-sizing: border-box;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0%;
+        animation: progress ${duration}s ease-in ;
+      }
+      .showToast img {
+        height: 30px;
+        width:30px;
+      }
+      @keyframes slideIn {
+        0% {
+          transform: translateX(120%);
+        }
+        100% {
+          transform: translateX(0%);
+        }
+      }
+      @keyframes slideOut {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      @keyframes progress {
+        0% {
+          width: 100%;
+        }
+        100% {
+          width: 0%;
+        }
+      }`;
+    const head = document.head;
+    head.appendChild(styleElement);
+    document.body.prepend(showToastElement);
 }

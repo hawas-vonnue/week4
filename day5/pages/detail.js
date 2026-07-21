@@ -1,6 +1,8 @@
 import { fetchJson } from "../util.js";
 
 export async function renderDetailPage(imdbId) {
+    const documentFragment = document.createElement("div");
+    documentFragment.classList.add("detail");
     const detailedCard = document.querySelector(".detailedCard");
     let detailedCardClone = detailedCard.cloneNode(true);
     let url = `http://www.omdbapi.com/?i=${imdbId}&page=1&apikey=cbd3390f`;
@@ -26,10 +28,10 @@ export async function renderDetailPage(imdbId) {
         values[2].textContent = result.Director;
         values[3].textContent = result.Language;
         values[4].textContent = result.Awards;
+        documentFragment.append(detailedCardClone);
 
         const mainElement = document.querySelector("main");
         mainElement.innerHTML = "";
-        mainElement.append(detailedCardClone);
-        const headerElement = document.querySelector("header");
+        mainElement.append(documentFragment);
     });
 }

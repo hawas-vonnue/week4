@@ -1,5 +1,6 @@
 export function renderSettingsPage() {
-    const documentFragment = document.createDocumentFragment();
+    const documentFragment = document.createElement("div");
+    documentFragment.classList.add("settings");
     const settingsContainer = document.createElement("div");
     settingsContainer.classList.add("settingsContainer");
     const loginButton = document.createElement("button");
