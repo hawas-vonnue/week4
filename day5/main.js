@@ -3,11 +3,11 @@ import { renderListPage } from "./pages/list.js";
 import { renderDetailPage } from "./pages/detail.js";
 import { renderSettingsPage } from "./pages/settings.js";
 import { renderWatchList } from "./pages/watchlist.js";
-import { createCard, createModal, navigate } from "./util.js";
+import { createCard, createModal, navigate, updateMovieList } from "./util.js";
 import { register } from "./util.js";
 import { createStore } from "./util.js";
 import { reducer } from "./util.js";
-import { searchMovie } from "./util.js";
+import { renderUpdatedMoviesList } from "./util.js";
 
 const routes = [
     "/day5/index.html/home",
@@ -68,6 +68,11 @@ const initialState = {
         path: "",
         params: {},
     },
+    movieChanged: {
+        id: "",
+        type: "add",
+    },
+    moviesList: new Set(),
 };
 
 const store = createStore(initialState, reducer);
@@ -83,51 +88,26 @@ export function onRouteChange(path, params) {
     });
 }
 
+export async function onMoviesListChange(type, id) {
+    await store.dispatch({
+        type: "MOVIESLIST_CHANGED",
+        payload: { type, id },
+    });
+}
+
 // Component subscribes to state changes
-store.subscribe((state) => {
+store.subscribe("ROUTE_CHANGED", (state) => {
     navigate(routesMap, state.route.path, state.route.params);
+    renderUpdatedMoviesList(state);
 });
-
-// let card = createCard(
-//     "Pulp fiction",
-//     10,
-//     ["crime", "Drama", "Western", "fight"],
-//     "https://m.media-amazon.com/images/M/MV5BNGNhMDIzZTUtNTBlZi00MTRlLWFjM2ItYzViMjE3YzI5MjljXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_QL75_UY562_CR3,0,380,562_.jpg"
-// );
-// const mainElement = document.querySelector(".main");
-// mainElement.append(card);
-// let card2 = createCard(
-//     "fight club",
-//     9.5,
-//     ["Drama"],
-//     "https://m.media-amazon.com/images/M/MV5BNDIzNDU0YzEtYzE5Ni00ZjlkLTk5ZjgtNjM3NWE4YzA3Nzk3XkEyXkFqcGdeQXVyMjUzOTY1NTc@._V1_QL75_UX380_CR0,1,380,562_.jpg"
-// );
-// mainElement.append(card2);
-
-// const searchButton = document.querySelector(".searchButton");
-// searchButton.addEventListener("click", () => {
-//     const searchResultContainer = document.querySelector(
-//         ".searchResultContainer"
-//     );
-//     searchResultContainer.innerHTML = "";
-//     const warningElement = document.querySelector(".warning");
-//     warningElement.textContent = "";
-//     let searchValue = searchButton.previousElementSibling.value;
-//     if (searchValue === "") return;
-//     if (searchValue.length < 3) {
-//         warningElement.textContent = "Type at least three characters";
-
-//         return;
-//     }
-//     searchMovie(searchValue).then(
-//         (searchResults) => {
-//             searchResultContainer.append(searchResults);
-//         },
-//         (error) => {
-//             warningElement.textContent = "No results found";
-//         }
-//     );
-// });
+store.subscribe("MOVIESLIST_CHANGED", (state) => {
+    updateMovieList(state);
+});
 
 const overlay = createModal();
 document.body.prepend(overlay);
+window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+        if (overlay.style.display !== "none") overlay.style.display = "none";
+    }
+});
