@@ -1,10 +1,29 @@
-export function renderListPage() {
+import { parseCSV } from "../util.js";
+import { createCard } from "../util.js";
+
+export async function renderListPage() {
     const documentFragment = document.createDocumentFragment();
-    const divElement = document.createElement("div");
-    const h2Element = document.createElement("h2");
-    h2Element.textContent = "List Page";
-    divElement.append(h2Element);
-    documentFragment.append(divElement);
+    const headingElement = document.createElement("h1");
+    headingElement.textContent = "MOVIES";
+    const cardContainer = document.createElement("div");
+    cardContainer.classList.add("cardContainer");
+    let movies = await parseCSV();
+    for (let i = 0; i < movies.length; i++) {
+        let genres = movies[i].genre;
+        genres = genres.replace(/'/g, '"');
+        genres = JSON.parse(genres);
+        let card = createCard(
+            movies[i].title,
+            movies[i].rating,
+            genres,
+            movies[i].image,
+            movies[i].year,
+            movies[i].imdbid
+        );
+        cardContainer.appendChild(card);
+    }
+    documentFragment.append(headingElement, cardContainer);
+
     const mainElement = document.querySelector("main");
     mainElement.innerHTML = "";
     mainElement.append(documentFragment);
