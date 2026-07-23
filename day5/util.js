@@ -1,14 +1,15 @@
 import { onRouteChange } from "./main.js";
 import { onMoviesListChange } from "./main.js";
+import { showToast } from "./showToast.js";
 
 export function register(routes, path, component) {
     routes[path] = component;
 }
 
-export function navigate(routes, path, params) {
+export async function navigate(routes, path, params) {
     let fn = routes[path];
-    if (params !== undefined && params.length !== 0) fn(params.imdbID);
-    else fn();
+    if (params !== undefined && params.length !== 0) await fn(params.imdbID);
+    else await fn();
 }
 
 export function createButton(text, backgroundColor = "white") {
@@ -64,7 +65,7 @@ export function createCard(
         button.addEventListener("click", async (event) => {
             const cardToDelete =
                 event.currentTarget.parentElement.parentElement;
-            movies.delete(cardToDelete.dataset.imdbId);
+            let movies = new Set();
             await onMoviesListChange("delete", cardToDelete.id, movies);
             showToast("removed from watchlist", 3, "success");
         });
@@ -170,8 +171,9 @@ export function reducer(state, action) {
             if (action.payload.type === "add") {
                 list.add(action.payload.id);
             }
-            if (action.payload.type === "delete")
+            if (action.payload.type === "delete") {
                 list.delete(action.payload.id);
+            }
             return {
                 ...state,
                 moviesList: list,
@@ -202,7 +204,7 @@ export function createStore(initialState, reducer) {
         },
 
         async dispatch(action) {
-            if (state.moviesList.has(action.payload.id)) {
+            if (state.movieList && state.moviesList.has(action.payload.id)) {
                 showToast("movie already in watchlist", 3, "error");
                 return;
             }
@@ -239,7 +241,9 @@ export function createStore(initialState, reducer) {
 }
 
 //parse
-export async function parseCSV(filePath = "/Top_100_Movies.csv") {
+export async function parseCSV(
+    filePath = "http://127.0.0.1:8080/Top_100_Movies.csv"
+) {
     const response = await fetch(filePath);
     const data = await response.text();
     const lines = data.trim().split(/\r?\n/);
@@ -394,111 +398,4 @@ export async function updateMovieList(state) {
         watchListContainer.append(card);
         showToast(`added movie to watchlist`, 3, "success");
     }
-}
-
-export function showToast(message, duration, type = "error") {
-    const toasts = document.querySelectorAll(".showToast");
-    toasts.forEach((toast) => {
-        toast.remove();
-    });
-    const showToastElement = document.createElement("div");
-    showToastElement.style.zIndex = "120";
-    showToastElement.classList.add("showToast");
-    const toastContainerElement = document.createElement("div");
-    toastContainerElement.classList.add("toastContainer");
-    const imageElement = document.createElement("img");
-    const progressBarElement = document.createElement("div");
-    progressBarElement.classList.add("progressBar");
-    if (type === "warning") {
-        imageElement.src =
-            "https://img.icons8.com/?size=100&id=781qLOihKEEg&format=png&color=000000";
-        progressBarElement.style.border = "solid yellow";
-        showToastElement.style.backgroundColor = "#ffffdd";
-    }
-    if (type === "info") {
-        imageElement.src =
-            "https://img.icons8.com/?size=100&id=FJjsgnE4CWTg&format=png&color=000000";
-        progressBarElement.style.border = "solid blue";
-        showToastElement.style.backgroundColor = "#ADD8E6";
-    }
-    if (type === "error") {
-        imageElement.src =
-            "https://img.icons8.com/?size=100&id=43735&format=png&color=000000";
-        progressBarElement.style.border = "solid red";
-        showToastElement.style.backgroundColor = "#FF474C";
-    }
-    if (type === "success") {
-        imageElement.src =
-            "https://img.icons8.com/?size=100&id=43711&format=png&color=000000";
-        progressBarElement.style.border = "solid green";
-        showToastElement.style.backgroundColor = "#90EE90";
-    }
-    const messageElement = document.createElement("span");
-    messageElement.textContent = message;
-    toastContainerElement.appendChild(imageElement);
-    toastContainerElement.appendChild(messageElement);
-    showToastElement.appendChild(toastContainerElement);
-    showToastElement.appendChild(progressBarElement);
-    const styleElement = document.createElement("style");
-    styleElement.textContent = `  .showToast {
-        box-sizing: border-box;
-        position: fixed;
-        top: 60px;
-        right: 30px;
-        border: solid;
-        padding: 5px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        border-radius: 8px;
-        transform: translateX(120%);
-        animation:
-          slideIn 0.3s ease-in forwards,
-          slideOut 0.5s ease-out forwards ${duration}s;
-      }
-      .toastContainer {
-        display: flex;
-        align-items: center;
-        gap:4px;
-      }
-      .progressBar {
-        box-sizing: border-box;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0%;
-        animation: progress ${duration}s ease-in ;
-      }
-      .showToast img {
-        height: 30px;
-        width:30px;
-      }
-      @keyframes slideIn {
-        0% {
-          transform: translateX(120%);
-        }
-        100% {
-          transform: translateX(0%);
-        }
-      }
-      @keyframes slideOut {
-        0% {
-          opacity: 1;
-        }
-        100% {
-          opacity: 0;
-        }
-      }
-      @keyframes progress {
-        0% {
-          width: 100%;
-        }
-        100% {
-          width: 0%;
-        }
-      }`;
-    const head = document.head;
-    head.appendChild(styleElement);
-    document.body.prepend(showToastElement);
 }

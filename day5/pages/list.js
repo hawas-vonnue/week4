@@ -1,8 +1,8 @@
-import { parseCSV, showToast } from "../util.js";
+import { parseCSV } from "../util.js";
 import { createCard } from "../util.js";
+import { showToast } from "../showToast.js";
 
 export async function renderListPage() {
-    // const documentFragment = document.createDocumentFragment();
     const documentFragment = document.createElement("div");
     documentFragment.classList.add("list");
     const headingElement = document.createElement("h1");
@@ -33,7 +33,7 @@ export async function renderListPage() {
             );
             cardContainer.appendChild(card);
         }
-        mainElement.append(cardContainer);
+        documentFragment.append(cardContainer);
         spinnerElement.classList.add("hidden");
     } catch (error) {
         showToast("error in fetching data", 3, "error");

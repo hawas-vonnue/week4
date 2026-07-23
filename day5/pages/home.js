@@ -43,6 +43,6 @@ export async function renderHomePage() {
         mainElement.innerHTML = "";
         mainElement.append(documentFragment);
     } catch (error) {
-        alert(error);
+        console.log(error);
     }
 }

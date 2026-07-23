@@ -102,7 +102,6 @@ nav a {
     width: 100%;
     height: 70vh;
     filter: blur(3px);
-    /* background-image: url("https://assets.nflxext.com/ffe/siteui/vlv3/ffa9d590-69c5-406f-bff9-e2ced3baa6ad/web/IN-en-20260713-TRIFECTA-perspective_75c0557e-9bbb-4149-9913-b87d4d7a30b7_large.jpg"); */
 }
 .hero {
     position: relative;
@@ -135,9 +134,7 @@ nav a {
 .addToWatchList button,
 .watchedButton,
 .addToWatchListButton {
-    /* margin-right: 40px; */
     padding: 10px;
-    /* border: solid 1px white; */
     border-radius: 8px;
     background: none;
     color: white;
@@ -146,13 +143,9 @@ nav a {
     position: absolute;
     width: 100%;
     min-height: max(calc(100% + 70px), 100vh);
-    /* min-height: 100vh; */
-    /* background-color: white; */
     top: 0;
-    /* display: flex; */
     display: none;
     flex-direction: column;
-    /* justify-content: center; */
     align-items: center;
     gap: 20px;
     background-color: #171717;
@@ -186,11 +179,7 @@ nav a {
 .searchButton {
     width: 100px;
     background: none;
-    /* color: white; */
 }
-/* .watchList {
-    filter: blur(1px);
-} */
 .searchResultContainer {
     display: flex;
     justify-content: space-around;
