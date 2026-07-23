@@ -5,7 +5,7 @@ export async function renderDetailPage(imdbId) {
     documentFragment.classList.add("detail");
     const detailedCard = document.querySelector(".detailedCard");
     let detailedCardClone = detailedCard.cloneNode(true);
-    let url = `http://www.omdbapi.com/?i=${imdbId}&page=1&apikey=cbd3390f`;
+    let url = `https://www.omdbapi.com/?i=${imdbId}&page=1&apikey=cbd3390f`;
     let result = await fetchJson(url);
     const img = detailedCardClone.querySelector("img");
     img.src = result.Poster;

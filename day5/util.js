@@ -323,7 +323,7 @@ export function createSearchResultCard(title, year, posterSrc) {
 }
 
 export async function searchMovie(name) {
-    let url = `http://www.omdbapi.com/?s=${name}&page=1&apikey=cbd3390f`;
+    let url = `https://www.omdbapi.com/?s=${name}&page=1&apikey=cbd3390f`;
     let results = await fetchJson(url);
     if (results.Response === "false") {
         Promise.reject(new Error("couldnt find results"));
@@ -346,7 +346,7 @@ export async function searchMovie(name) {
 
 export async function addToWatchList(imdbId) {
     const overlay = document.querySelector(".overlay");
-    let url = `http://www.omdbapi.com/?i=${imdbId}&page=1&apikey=cbd3390f`;
+    let url = `https://www.omdbapi.com/?i=${imdbId}&page=1&apikey=cbd3390f`;
     let result;
     try {
         result = await fetchJson(url);
