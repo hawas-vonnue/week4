@@ -204,7 +204,10 @@ export function createStore(initialState, reducer) {
         },
 
         async dispatch(action) {
-            if (state.movieList && state.moviesList.has(action.payload.id)) {
+            if (
+                action.payload.type === "add" &&
+                state.moviesList.has(action.payload.id)
+            ) {
                 showToast("movie already in watchlist", 3, "error");
                 return;
             }
