@@ -240,10 +240,10 @@ export function createStore(initialState, reducer) {
     };
 }
 
+//use filepath = http://127.0.0.1:8080/Top_100_Movies.csv
+//when testing because cross-fetch needs absolute url
 //parse
-export async function parseCSV(
-    filePath = "http://127.0.0.1:8080/Top_100_Movies.csv"
-) {
+export async function parseCSV(filePath = "/week4/day5/Top_100_Movies.csv") {
     const response = await fetch(filePath);
     const data = await response.text();
     const lines = data.trim().split(/\r?\n/);
