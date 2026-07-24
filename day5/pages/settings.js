@@ -1,23 +1,26 @@
 export function renderSettingsPage() {
     const documentFragment = document.createElement("div");
-    documentFragment.classList.add("settings");
     const settingsContainer = document.createElement("div");
-    settingsContainer.classList.add("settingsContainer");
     const loginButton = document.createElement("button");
-    loginButton.textContent = "Login";
-    loginButton.classList.add("settingButton");
     const createUserButton = document.createElement("button");
-    createUserButton.textContent = "Create User";
-    createUserButton.classList.add("settingButton");
     const changeUserNameButton = document.createElement("button");
-    changeUserNameButton.textContent = "Change user name";
-    changeUserNameButton.classList.add("settingButton");
     const deleteAccountButton = document.createElement("button");
-    deleteAccountButton.textContent = "Delete Account";
-    deleteAccountButton.classList.add("settingButton");
     const resetSettingsButton = document.createElement("button");
-    resetSettingsButton.textContent = "Reset Settings";
+
+    documentFragment.classList.add("settings");
+    settingsContainer.classList.add("settingsContainer");
+    loginButton.classList.add("settingButton");
+    createUserButton.classList.add("settingButton");
+    changeUserNameButton.classList.add("settingButton");
+    deleteAccountButton.classList.add("settingButton");
     resetSettingsButton.classList.add("settingButton");
+
+    loginButton.textContent = "Login";
+    createUserButton.textContent = "Create User";
+    changeUserNameButton.textContent = "Change user name";
+    deleteAccountButton.textContent = "Delete Account";
+    resetSettingsButton.textContent = "Reset Settings";
+
     settingsContainer.append(
         loginButton,
         createUserButton,
@@ -28,6 +31,7 @@ export function renderSettingsPage() {
     documentFragment.append(settingsContainer);
 
     const mainElement = document.querySelector("main");
+
     mainElement.innerHTML = "";
     mainElement.append(documentFragment);
 }

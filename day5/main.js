@@ -16,7 +16,7 @@ const routes = [
     "/day5/index.html/settings",
     "/day5/index.html/watchlist",
 ];
-const routesMap = {};
+export const routesMap = {};
 
 register(routesMap, routes[0], renderHomePage);
 register(routesMap, routes[1], renderListPage);
@@ -29,14 +29,13 @@ links.forEach((element) => {
     element.addEventListener("click", (event) => {
         event.preventDefault();
         let pathname = document.location.pathname;
-        // pathname = pathname.split("/").slice(0, -1).join("/");
         pathname = `/day5/index.html`;
         const url = `${pathname}/${event.target.id}`;
         history.pushState({}, null, url);
         onRouteChange(url, {});
     });
 });
-
+// comment this when testing because it affects with navigation when liv-server is on and we test
 window.onload = (event) => {
     init();
 };
@@ -62,20 +61,20 @@ function init() {
     }
 }
 
-// Initial State
-const initialState = {
+// initial state
+const initialstate = {
     route: {
         path: "",
         params: {},
     },
-    movieChanged: {
+    moviechanged: {
         id: "",
         type: "add",
     },
     moviesList: new Set(),
 };
 
-const store = createStore(initialState, reducer);
+export const store = createStore(initialstate, reducer);
 
 // Called whenever the route changes
 export function onRouteChange(path, params) {
