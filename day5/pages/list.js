@@ -4,17 +4,21 @@ import { showToast } from "../showToast.js";
 
 export async function renderListPage() {
     const documentFragment = document.createElement("div");
-    documentFragment.classList.add("list");
     const headingElement = document.createElement("h1");
-    headingElement.textContent = "MOVIES";
     const spinnerElement = document.createElement("div");
-    spinnerElement.classList.add("spinner");
     const cardContainer = document.createElement("div");
-    cardContainer.classList.add("cardContainer");
-    documentFragment.append(headingElement, spinnerElement);
     const mainElement = document.querySelector("main");
+
+    documentFragment.classList.add("list");
+    spinnerElement.classList.add("spinner");
+    cardContainer.classList.add("cardContainer");
+
+    headingElement.textContent = "MOVIES";
+    documentFragment.append(headingElement, spinnerElement);
+
     mainElement.innerHTML = "";
     mainElement.append(documentFragment);
+
     //use timeout just to simulate time taking and to see loading
     // setTimeout(async () => {
     try {

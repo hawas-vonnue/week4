@@ -1,17 +1,20 @@
 export function renderWatchList() {
     const documentFragment = document.createElement("div");
-    documentFragment.classList.add("watchList");
     const addToWatchListElement = document.createElement("div");
-    addToWatchListElement.classList.add("addToWatchList");
     const button = document.createElement("button");
+    const watchListHeading = document.createElement("h3");
+    const loadingElement = document.createElement("div");
+    const watchListContainerElement = document.createElement("div");
+
+    documentFragment.classList.add("watchList");
+    addToWatchListElement.classList.add("addToWatchList");
+    loadingElement.classList.add("spinner");
+    watchListContainerElement.classList.add("watchListContainer");
+
     button.textContent = "add to watchlist";
     addToWatchListElement.append(button);
-    const watchListHeading = document.createElement("h3");
+
     watchListHeading.textContent = "Your Watch List";
-    const loadingElement = document.createElement("div");
-    loadingElement.classList.add("spinner");
-    const watchListContainerElement = document.createElement("div");
-    watchListContainerElement.classList.add("watchListContainer");
     documentFragment.append(
         addToWatchListElement,
         watchListHeading,
@@ -20,6 +23,7 @@ export function renderWatchList() {
     );
 
     const mainElement = document.querySelector("main");
+
     mainElement.innerHTML = "";
     mainElement.append(documentFragment);
     button.addEventListener("click", () => {

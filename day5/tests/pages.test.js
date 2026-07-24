@@ -107,8 +107,10 @@ describe("watchList page", () => {
         await renderWatchList();
         const overlay = createModal();
         document.body.append(overlay);
+
         const addButton = document.querySelector("button");
         addButton.click();
+
         expect(overlay.style.display).toBe("flex");
     });
 });
